@@ -11,7 +11,7 @@ class Cst(Expression):
 		self.data = data
 		
 	def __str__(self):
-		return self.data[0]
+		return self.data
 	
 
 
