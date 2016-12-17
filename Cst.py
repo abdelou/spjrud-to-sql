@@ -9,5 +9,9 @@ class Cst(Expression):
 	#On utilise un tuple pour representer la valeur et le type de cet valeur?
 	def __init__(self, data):
 		self.data = data
+		
+	def __str__(self):
+		return self.data[0]
+	
 
 
