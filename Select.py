@@ -13,7 +13,7 @@ class Select(Relation):
 		self.req = "SELECT * FROM " + str(self.relation) + " WHERE " + str(self.eq)
 
 	def __str__(self):
-		return self.eq
+		return self.req
 
 
 	def verify(self):
