@@ -9,12 +9,12 @@ class Relation :
   
   def setSchema(self, schema) :
     if not isinstance(schema, dict) :
-      raise Exception('schema argument must be of type dict"')
+      raise TypeError('schema argument must be of type dict"')
     
     for name in schema :
       type = schema[name]
       if not type in Relation.valid_types :
-        raise Exception('schema invalid type "'+type+'" for attribute "'+name+'"')
+        raise TypeError('schema invalid type "'+type+'" for attribute "'+name+'"')
     
     self.schema = schema
   
