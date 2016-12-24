@@ -15,7 +15,7 @@ class Equal(Expression):
 
 	def verifyType(self):
 		if not isinstance(self.attr1, Attribute):
-			raise TypeError("Le premier attribute doit etre un objet de type Attribute (Colonne)")
+			raise TypeError("First attribute must be of type Attribute (Column)")
 
 		elif not isinstance(self.attr2, Attribute) and not isinstace(self.attr2, Cst):
-			raise TypeError("Le deuxieme attribute doit etre un objet de type Attribute ou Cst (constante)")
+			raise TypeError("Second attribute must be of type Attribute or Cst (Constant)")
