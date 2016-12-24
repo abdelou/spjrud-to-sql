@@ -21,5 +21,11 @@ class Relation :
   def getSchema(self) :
     return self.schema
   
+  def getAttributes(self) :
+    attributes = []
+    for att in self.schema :
+      attributes.append(att)
+    return attributes
+  
   def toSQL(self) :
     raise Exception('method toSQL not implemented here')
