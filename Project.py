@@ -21,5 +21,5 @@ class Project(Relation) :
     self.setAttributes(attributes)
     
   def toSQL(self) :
-    att = ','.join(self.getAttributesName())
-    return 'SELECT '+att+' FROM ('+self.subrelation.toSQL()+')'
+    columns = '"'+'","'.join(self.getAttributesName())+'"'
+    return 'SELECT '+columns+' FROM ('+self.subrelation.toSQL()+')'
