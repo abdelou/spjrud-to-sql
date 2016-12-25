@@ -14,10 +14,11 @@ class Project(Relation) :
         raise Exception('Sub-Relation of Project has no attribute "'+attr+'"')
         
     # create new schema with only only_attributes
-    self.attributes = []
+    attributes = []
     for attr in subrelation.getAttributes() :
       if attr.getName() in only_attributes :
-        self.attributes.append(attr)
+        attributes.append(attr)
+    self.setAttributes(attributes)
     
   def toSQL(self) :
     att = ','.join(self.getAttributesName())
