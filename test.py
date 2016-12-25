@@ -22,11 +22,17 @@ from SelectAttribute import SelectAttribute
 rel = SelectAttribute('ename', 'empno', rel)
 #pprint(rel.getAttributesName())
 #"""
-
 """ Test SelectAttribute
 from SelectAttribute import SelectAttribute
+# comparable attributes
+rel = SelectAttribute('ename', 'job', rel)
+#pprint(rel.getAttributesName())
+#"""
+
+#""" Test SelectConstant
+from SelectConstant import SelectConstant
 # comparables attributes
-rel = SelectAttribute('ename', 'empno', rel)
+rel = SelectConstant('job', 'MANAGER', rel)
 #pprint(rel.getAttributesName())
 #"""
 
@@ -37,7 +43,7 @@ sql = rel.toSQL()+';'
 database = sqlite3.connect('database.db')
 cursor = database.cursor()
 tuples = cursor.execute(sql)
-
+pprint(sql)
 pprint(rel.getAttributesName())
 for t in tuples :
   pprint(t)
