@@ -8,11 +8,19 @@ rel = SQLiteRelation('database', 'emp')
 #pprint(rel.getAttributesName())
 #"""
 
+#""" Test Rename
+from Rename import Rename
+
+rel = Rename('ename', 'E e', rel)
+pprint(rel.getAttributesName())
+#"""
+
 """ Test Project
 from Project import Project
 
 rel = Project(['ename', 'empno'], rel)
 rel = Project(['ename'], rel)
+#rel = Project(['E e'], rel)
 #pprint(rel.getAttributesName())
 #"""
 
@@ -32,18 +40,21 @@ rel = SelectAttribute('ename', 'job', rel)
 #""" Test SelectConstant
 from SelectConstant import SelectConstant
 # comparables attributes
-rel = SelectConstant('job', 'MANAGER', rel)
+rel = SelectConstant('E e', 'BLAKE', rel)
 #pprint(rel.getAttributesName())
 #"""
+
 
 #""" Execute request on database
 import sqlite3
 
 sql = rel.toSQL()+';'
+pprint(sql)
+
 database = sqlite3.connect('database.db')
 cursor = database.cursor()
 tuples = cursor.execute(sql)
-pprint(sql)
+
 pprint(rel.getAttributesName())
 for t in tuples :
   pprint(t)
