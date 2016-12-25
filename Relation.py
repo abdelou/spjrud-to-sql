@@ -14,10 +14,12 @@ class Relation :
     
     self.attributes = attributes
   
-  def getAttribute(self, attribute_name) :
+  def getAttribute(self, attribute_name, raise_error=True) :
     for attr in self.attributes :
       if attr.getName() == attribute_name :
         return attr
+    if not raise_error :
+      return False
     raise Exception('Relation has no attribute named "'+attribute_name+'"')
   
   def getAttributes(self) :
