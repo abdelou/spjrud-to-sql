@@ -4,6 +4,7 @@ from Relation import Relation
 
 class Difference(Relation):
 	def __init__(self, subrelation1, subrelation2):
+		# check that arguments are objects of type Relation
 		if not isinstance(subrelation1, Relation):
 			raise TypeError('subrelation1 argument must be of type Relation')
 		if not isinstance(subrelation2, Relation):
@@ -11,6 +12,7 @@ class Difference(Relation):
 		self.subrelation1 = subrelation1
 		self.subrelation2 = subrelation2
 
+		# saves attributes from both arguments
 		attributes1 = subrelation1.getAttributes()
 		attributes2 = subrelation2.getAttributes()
 
@@ -22,7 +24,8 @@ class Difference(Relation):
 			if attr1.getName() != attr2.getName() or attr1.getType() != attr2.getType():
 				raise Exception('subrelation1 must have same attributes as subrelation2')
 
-		#How to handle attributes here?
+		# save correct attributes
+		self.setAttributes(attributes1)
 
 
 	def toSQL(self):
