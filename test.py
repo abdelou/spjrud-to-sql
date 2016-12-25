@@ -5,14 +5,29 @@ from pprint import pprint
 from sqlite import SQLiteRelation
 
 rel = SQLiteRelation('database', 'emp')
-#pprint(rel.getSchema())
+#pprint(rel.getAttributesName())
 #"""
 
-#""" Test Project
+""" Test Project
 from Project import Project
 
 rel = Project(['ename', 'empno'], rel)
-pprint(rel.getSchema())
+rel = Project(['ename'], rel)
+#pprint(rel.getAttributesName())
+#"""
+
+""" Test SelectAttribute
+from SelectAttribute import SelectAttribute
+# not comparable attributes
+rel = SelectAttribute('ename', 'empno', rel)
+#pprint(rel.getAttributesName())
+#"""
+
+""" Test SelectAttribute
+from SelectAttribute import SelectAttribute
+# comparables attributes
+rel = SelectAttribute('ename', 'empno', rel)
+#pprint(rel.getAttributesName())
 #"""
 
 #""" Execute request on database
@@ -23,7 +38,7 @@ database = sqlite3.connect('database.db')
 cursor = database.cursor()
 tuples = cursor.execute(sql)
 
-pprint(rel.getAttributes())
+pprint(rel.getAttributesName())
 for t in tuples :
   pprint(t)
 #"""
