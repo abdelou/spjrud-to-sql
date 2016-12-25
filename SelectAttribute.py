@@ -19,5 +19,5 @@ class SelectAttribute(Relation) :
       raise Exception(str(self.attribute1)+' is not comparable with '+str(self.attribute2))
   
   def toSQL(self) :
-    comparison = self.attribute1.getName()+'='+self.attribute2.getName()
+    comparison = '"'+self.attribute1.getName()+'"="'+self.attribute2.getName()+'"'
     return 'SELECT * FROM ('+self.subrelation.toSQL()+') WHERE '+comparison
