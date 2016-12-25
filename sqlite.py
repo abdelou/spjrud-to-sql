@@ -1,28 +1,26 @@
 import sqlite3
-from Relation import Relation
+from Relation import Relation, Attribute
 
 # for debug purposes
 from pprint import pprint
 
-def get_schema(database, table) :
+def getAttributesFromTable(database, table) :
   cursor = database.cursor()
   infos = cursor.execute('PRAGMA table_info('+table+');')
   
-  schema = {}
+  attributes = []
   for tup in infos :
-    column_name = tup[1]
-    column_type = tup[2]
-    schema[column_name] = column_type
+    attributes.append(Attribute(tup[1], tup[2]))
   
-  return schema or False
+  return attributes or False
 
 class SQLiteRelation(Relation) :
   def __init__(self, database_name, relation_name) :
     database = sqlite3.connect(database_name+'.db')
-    s = get_schema(database, relation_name)
+    s = getAttributesFromTable(database, relation_name)
     if not s :
       raise Exception('Relation "'+relation_name+'" does not exists in database "'+database_name+'"')
-    self.setSchema(s)
+    self.setAttributes(s)
     self.relation_name = relation_name
   def toSQL(self) :
     return 'SELECT * FROM '+self.relation_name
