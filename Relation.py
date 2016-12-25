@@ -36,8 +36,7 @@ class Attribute :
   # datatypes from https://www.sqlite.org/datatype3.html and FLOAT return by PRAGMA TABLE_INFO()
   valid_types = ['TEXT', 'NUMERIC', 'INTEGER', 'REAL', 'BLOB', 'FLOAT']
   def __init__(self, name, type) :
-    # TODO : check name ?
-    self.name = name
+    self.setName(name)
     # check type
     if not type in Attribute.valid_types :
       raise TypeError('Invalid type "'+type+'" for attribute "'+name+'"')
@@ -52,6 +51,10 @@ class Attribute :
     if other.getType() == 'TEXT' and self.getType() != 'TEXT' :
       return False
     return True
+  
+  def setName(self, name) :
+    # TODO : check name ?
+    self.name = unicode(name)
   
   def getName(self) :
     return self.name
