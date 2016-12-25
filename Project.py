@@ -21,5 +21,6 @@ class Project(Relation) :
     self.setAttributes(attributes)
     
   def toSQL(self) :
+    # join and escape attributes name because they can contain spaces
     columns = '"'+'","'.join(self.getAttributesName())+'"'
     return 'SELECT '+columns+' FROM ('+self.subrelation.toSQL()+')'
