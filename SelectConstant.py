@@ -16,5 +16,5 @@ class SelectConstant(Relation) :
     self.constant = str(constant)
   
   def toSQL(self) :
-    comparison = self.attribute.getName()+'="'+self.constant.replace('"', '\\"')+'"'
+    comparison = '"'+self.attribute.getName()+'"='+"'"+self.constant.replace("'", "\\'")+"'"
     return 'SELECT * FROM ('+self.subrelation.toSQL()+') WHERE '+comparison
