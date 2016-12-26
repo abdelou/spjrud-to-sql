@@ -11,6 +11,9 @@ from SPJRUD.Union import Union
 from SPJRUD.Difference import Difference
 # SQLite
 from sqlite import SQLiteRelation
+# manual creation
+from Relation import Relation, Attribute
+from SPJRUD.functions import str_attributes
 # for arguments
 import sys
 
@@ -24,12 +27,20 @@ except ValueError :
   print "Usage : python test.py TEST_NUMBER"
   exit(0)
 
-# create an SQLite test database and get tables emp and dept
+# create an SQLite test database
 DB_NAME = 'test_db'
 create_database(DB_NAME)
+# get attributes from database
 emp = SQLiteRelation(DB_NAME, 'emp')
 dept = SQLiteRelation(DB_NAME, 'dept')
 
+# manually create attributes, SQL can't be generated but errors will be checked
+man_rel = Relation([
+Attribute('name', 'TEXT'),
+Attribute('age', 'INTEGER')
+])
+if test == 0 :
+  print str_attributes(man_rel.getAttributes())
 
 # test SQLiteRelation
 if test == 1 :
