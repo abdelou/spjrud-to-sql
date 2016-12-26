@@ -14,7 +14,7 @@ class Join(Relation) :
     # make list of common attributes for future use
     self.common_attributes_name = []
     
-    # check if all attributes are the same, it is an intersection
+    # check if all attributes are the same, it is an intersection (not managed by SQL JOIN)
     if attributes_match(subrelation1.getAttributes(), subrelation2.getAttributes()) :
       self.intersect = True
       return
