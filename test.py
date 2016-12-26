@@ -75,9 +75,18 @@ if test == 40 :
   rel2 = Rename('empno', 'common', emp)
   rel = Join(rel1, rel2)
 if test == 41 :
-  #rel = Join(rel, dept)
-  rel = Join(rel, Rename('deptno', 'deptno2', dept))
-
+  # common column "deptno"
+  rel = Join(emp, dept)
+if test == 42 :
+  # no common column, cartesian product
+  rel1 = SelectConstant('ename', 'BLAKE', emp)
+  rel2 = Rename('deptno', 'deptno2', dept)
+  rel = Join(rel1, rel2)
+if test == 43 : # TODO this test is failing
+  # all common column, intersection
+  rel1 = Union(SelectConstant('ename', 'BLAKE', emp), SelectConstant('ename', 'JONES', emp))
+  rel2 = Union(SelectConstant('ename', 'BLAKE', emp), SelectConstant('ename', 'SMITH', emp))
+  rel = Join(rel1, rel2)
 
 # Test Rename
 if test == 50 :
