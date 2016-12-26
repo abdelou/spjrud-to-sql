@@ -1,19 +1,24 @@
 from pprint import pprint
 
+
+# 'Abstract' class used as a base for all Operators. Made of a list of objects of type Attributes
 class Relation :
   def __init__(self, attributes) :
     self.setAttributes(attributes)
   
   def setAttributes(self, attributes) :
+    # check that the entry arguments is an object of type List
     if not isinstance(attributes, list) :
       raise TypeError('attributes argument must be a list of objects Attribute"')
     
+    # check that all objects in the list are of type Attribute
     for attr in attributes :
       if not isinstance(attr, Attribute) :
         raise TypeError('Attribute "'+attr+'" is not of type Attribute')
     
     self.attributes = attributes
   
+  # return Attribute of name attribute_name
   def getAttribute(self, attribute_name, raise_error=True) :
     for attr in self.attributes :
       if attr.getName() == attribute_name :
@@ -22,9 +27,11 @@ class Relation :
       return False
     raise Exception('Relation has no attribute named "'+attribute_name+'"')
   
+  # return list of Attributes
   def getAttributes(self) :
     return self.attributes
   
+  # return name of all Attributes
   def getAttributesName(self) :
     names = []
     for attr in self.attributes :
@@ -34,6 +41,7 @@ class Relation :
   def toSQL(self) :
     raise Exception('method toSQL not implemented here')
 
+# class used to represent each column (attribute) in a table (relation).
 class Attribute :
   # datatypes from https://www.sqlite.org/datatype3.html and FLOAT return by PRAGMA TABLE_INFO()
   valid_types = ['TEXT', 'NUMERIC', 'INTEGER', 'REAL', 'BLOB', 'FLOAT']
