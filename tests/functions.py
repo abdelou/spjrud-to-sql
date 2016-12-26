@@ -29,7 +29,7 @@ def print_relation(attributes, tuples) :
     # check each tuple is same length than attributes
     t_len = len(t)
     if t_len != attr_len :
-      raise Exception('Attribute length is "'+attr_len+'" but tuple length is "'+t_len+'"')
+      raise Exception('Attribute length is "'+str(attr_len)+'" but tuple length is "'+str(t_len)+'"')
     # save tuple in list
     new_row = []
     for val in t :
