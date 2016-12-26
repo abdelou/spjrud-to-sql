@@ -67,6 +67,7 @@ if test == 31 :
   # working : existing attribute
   rel = Project(['ename', 'empno'], emp)
 
+
 # Test Join
 if test == 40 :
   # error : 2 attributes with same name but different types
@@ -83,6 +84,10 @@ if test == 50 :
   # error : attribute does not exists
   rel = Rename('nonexistant', 'newname', emp)
 if test == 51 :
+  # error : new_name already exists
+  rel = Rename('ename', 'empno', emp)
+if test == 52 :
+  # working
   rel = Rename('ename', 'Name', emp)
 
 

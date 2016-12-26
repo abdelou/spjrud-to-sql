@@ -10,7 +10,14 @@ class Rename(Relation) :
     
     # copy attributes and rename one
     self.setAttributes(deepcopy(subrelation.getAttributes()))
-    attr = self.getAttribute(old_attr_name)
+    
+    # check that new name does not exists already
+    existing = self.getAttribute(new_attr_name, False)
+    if existing :
+      self.error('attribute name "'+new_attr_name+'" already exists in subrelation')
+    
+    # save new name
+    attr = self.getAttribute(old_attr_name, True, 'subrelation')
     attr.setName(new_attr_name)
     
   def toSQL(self) :
