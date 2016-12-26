@@ -43,8 +43,10 @@ According to [this page](https://www.sqlite.org/datatype3.html), valid SQLite ty
 - INTEGER
 - REAL
 - BLOB
+
 Though, the SQLite command to describe a table `PRAGMA TABLE_INFO()` return one more type :
 - FLOAT
+
 To avoid false positive during type verification, we accepted types from both sources in this project.
 
 ## Attribute comparison
