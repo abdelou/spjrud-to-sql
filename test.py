@@ -82,11 +82,12 @@ if test == 42 :
   rel1 = SelectConstant('ename', 'BLAKE', emp)
   rel2 = Rename('deptno', 'deptno2', dept)
   rel = Join(rel1, rel2)
-if test == 43 : # TODO this test is failing
+if test == 43 :
   # all common column, intersection
   rel1 = Union(SelectConstant('ename', 'BLAKE', emp), SelectConstant('ename', 'JONES', emp))
   rel2 = Union(SelectConstant('ename', 'BLAKE', emp), SelectConstant('ename', 'SMITH', emp))
   rel = Join(rel1, rel2)
+
 
 # Test Rename
 if test == 50 :
