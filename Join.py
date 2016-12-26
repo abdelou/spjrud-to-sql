@@ -30,6 +30,8 @@ class Join(Relation) :
         self.attributes.append(attr2)
   
   def toSQL(self) :
-    common_columns = '"'+'","'.join(self.common_attributes_name)+'"'
-    
-    return 'SELECT * FROM ('+self.subrelation1.toSQL()+') JOIN ('+self.subrelation2.toSQL()+') USING ('+common_columns+')'
+    using = ''
+    if self.common_attributes_name :
+      common_columns = '"'+'","'.join(self.common_attributes_name)+'"'
+      using = ' USING ('+common_columns+')'
+    return 'SELECT * FROM ('+self.subrelation1.toSQL()+') JOIN ('+self.subrelation2.toSQL()+')'+using
