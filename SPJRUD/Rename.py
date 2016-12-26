@@ -1,5 +1,5 @@
 from Relation import Relation, Attribute
-from Functions import *
+from functions import *
 from copy import deepcopy
 
 

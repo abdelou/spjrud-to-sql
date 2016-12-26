@@ -1,5 +1,5 @@
 from Relation import Relation
-from Functions import *
+from functions import *
 
 
 # Operator Select to access an attribute (or column)
