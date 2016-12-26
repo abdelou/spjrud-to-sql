@@ -8,3 +8,4 @@ zip: clean
 	zip -r $(ZIP_FILE) . --quiet
 test:
 	python test.py
+	@make clean --silent
