@@ -19,13 +19,13 @@ class Relation :
     self.attributes = attributes
   
   # return Attribute of name attribute_name
-  def getAttribute(self, attribute_name, raise_error=True) :
+  def getAttribute(self, attribute_name, raise_error=True, rel_name='Relation') :
     for attr in self.attributes :
       if attr.getName() == attribute_name :
         return attr
     if not raise_error :
       return False
-    raise Exception('Relation has no attribute named "'+attribute_name+'"')
+    self.error(rel_name+' has no attribute named "'+attribute_name+'"')
   
   # return list of Attributes
   def getAttributes(self) :
@@ -40,6 +40,9 @@ class Relation :
   
   def toSQL(self) :
     raise Exception('method toSQL not implemented here')
+  
+  def error(self, message) :
+    raise Exception(self.__class__.__name__+' : '+message)
 
 # class used to represent each column (attribute) in a table (relation).
 class Attribute :
