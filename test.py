@@ -125,10 +125,25 @@ if test == 63 :
 
 # Test Difference
 if test == 70 :
-  rel1 = SelectConstant('ename', 'BLAKE', emp)
-  rel2 = Rename('ename', 'Nom', emp)
-
-  rel = Difference(emp, rel2)
+  # error : one attribute not common
+  rel1 = Project(['ename', 'job'], emp)
+  rel2 = Project(['job'], emp)
+  rel = Difference(rel1, rel2)
+if test == 71 :
+  # error : all differents attributes
+  rel1 = Project(['ename'], emp)
+  rel2 = Project(['job'], emp)
+  rel = Difference(rel1, rel2)
+if test == 72 :
+  # error : one attribute with same name but different type
+  rel1 = Project(['ename'], emp)
+  rel2 = Rename('deptno', 'ename', Project(['deptno'], emp))
+  rel = Difference(rel1, rel2)
+if test == 73 :
+  # working
+  rel1 = emp
+  rel2 = Union(SelectConstant('ename', 'SMITH', emp), SelectConstant('ename', 'ALLEN', emp))
+  rel = Difference(rel1, rel2)
 
 # execute test request and delete database
 try :
