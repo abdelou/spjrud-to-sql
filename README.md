@@ -50,7 +50,7 @@ Though, the SQLite command to describe a table `PRAGMA TABLE_INFO()` return one 
 To avoid false positive during type verification, we accepted types from both sources in this project.
 
 ## Attribute comparison
-According to SQLite documentation, column does not have a cast type. The type of a column is in some way informative. Only "weird" stuff happen when comparing TEXT type to other type. In this project, we decided to restrict type comparison from TEXT to other values but other values can be compared without problem (e.g. an `INTEGER` with a `FLOAT`).
+According to SQLite documentation, column does not have a cast type. The type of a column is in some way informative. Only "weird" stuffs happen when comparing a value of type `TEXT` with an other value of different type. In this project, we decided to restrict type comparison from TEXT to other values but other values can be compared without problem (e.g. an `INTEGER` with a `FLOAT`).
 
 ## Escape attribute names and values
 To avoid errors when providing quotes or spaces within attribute names and values, it is required to escape them.
