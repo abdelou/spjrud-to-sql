@@ -5,7 +5,7 @@ from functions import *
 class Project(Relation) :
   def __init__(self, only_attributes, subrelation) :
     # check that argument subrelation is an object of type Relation
-    check_relation(subrelation, 2)
+    check_relation(subrelation, 'subrelation')
     self.subrelation = subrelation
     
     # check that attributes are in subAttributes
