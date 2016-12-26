@@ -5,8 +5,7 @@ from functions import *
 class SelectConstant(Relation) :
   def __init__(self, attribute_name, constant, subrelation) :
     # check and save subrelation
-    check_relation(subrelation, 'subrelation')
-    self.subrelation = subrelation
+    self.subrelation = check_relation(self, subrelation, 'subrelation')
     
     # schema is unchanged
     self.setAttributes(subrelation.getAttributes())

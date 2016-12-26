@@ -5,9 +5,8 @@ from copy import deepcopy
 
 class Rename(Relation) :
   def __init__(self, old_attr_name, new_attr_name, subrelation) :
-    # check that argument subrelation is of type Relation
-    check_relation(subrelation, 'subrelation')
-    self.subrelation = subrelation
+    # check and save subrelation
+    self.subrelation = check_relation(self, subrelation, 'subrelation')
     
     # copy attributes and rename one
     self.setAttributes(deepcopy(subrelation.getAttributes()))
