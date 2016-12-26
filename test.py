@@ -1,10 +1,17 @@
-# for debug purposes
+# for tests purposes
 from tests.functions import exec_request
 from tests.database import create_database, delete_database
-
-DB_NAME = 'test'
+# import all operators from SPJRUD
+from SPJRUD.SelectAttribute import SelectAttribute
+from SPJRUD.SelectConstant import SelectConstant
+from SPJRUD.Project import Project
+from SPJRUD.Join import Join
+from SPJRUD.Rename import Rename
+from SPJRUD.Union import Union
+from SPJRUD.Difference import Difference
 
 # create a test database
+DB_NAME = 'test_db'
 create_database(DB_NAME)
 
 #""" Test SQLiteRelation
@@ -17,8 +24,6 @@ dept = SQLiteRelation(DB_NAME, 'dept')
 #"""
 
 """ Test SelectAttribute
-from SPJRUD.SelectAttribute import SelectAttribute
-
 # not comparable attributes
 #rel = SelectAttribute('ename', 'empno', emp)
 
@@ -30,8 +35,6 @@ exec_request(DB_NAME, rel)
 
 
 """ Test SelectConstant
-from SPJRUD.SelectConstant import SelectConstant
-
 # comparables attributes
 rel = SelectConstant('ename', 'BLAKE', emp)
 
@@ -40,20 +43,13 @@ exec_request(DB_NAME, rel)
 
 
 """ Test Project
-from SPJRUD.Project import Project
-
 rel = Project(['ename', 'empno'], emp)
 
 exec_request(DB_NAME, rel)
 #"""
 
 
-#""" Test Join
-from SPJRUD.Join import Join
-
-from SPJRUD.SelectConstant import SelectConstant
-from SPJRUD.Rename import Rename
-
+""" Test Join
 rel = SelectConstant('ename', 'BLAKE', emp)
 
 #rel = Join(rel, dept)
@@ -64,21 +60,26 @@ exec_request(DB_NAME, rel)
 
 
 """ Test Rename
-from SPJRUD.Rename import Rename
-
 rel = Rename('ename', 'Name', emp)
 exec_request(DB_NAME, rel)
 #"""
 
 
 """ Test Union
-from SPJRUD.Union import Union
-from SPJRUD.SelectConstant import SelectConstant
-
 rel1 = SelectConstant('ename', 'BLAKE', emp)
 rel2 = SelectConstant('ename', 'JONES', emp)
 
 rel = Union(rel1, rel2)
+
+exec_request(DB_NAME, rel)
+#"""
+
+
+#""" Test Difference
+rel1 = SelectConstant('ename', 'BLAKE', emp)
+#rel2 = SelectConstant('ename', 'JONES', emp)
+
+rel = Difference(emp, rel1)
 
 exec_request(DB_NAME, rel)
 #"""
