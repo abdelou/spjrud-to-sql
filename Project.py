@@ -3,6 +3,7 @@ from Relation import Relation
 
 class Project(Relation) :
   def __init__(self, only_attributes, subrelation) :
+    # check that argument subrelation is an object of type Relation
     if not isinstance(subrelation, Relation) :
       raise TypeError('subrelation argument must be of type Relation"')
     self.subrelation = subrelation
@@ -21,6 +22,7 @@ class Project(Relation) :
     self.setAttributes(attributes)
     
   def toSQL(self) :
-    # join and escape attributes name because they can contain spaces
+    # join and escape attributes' names because they can contain spaces
     columns = '"'+'","'.join(self.getAttributesName())+'"'
+    # query
     return 'SELECT '+columns+' FROM ('+self.subrelation.toSQL()+')'
