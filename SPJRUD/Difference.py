@@ -6,8 +6,8 @@ from functions import *
 class Difference(Relation):
   def __init__(self, subrelation1, subrelation2):
     # check that arguments are objects of type Relation
-    check_relation(subrelation1, 1)
-    check_relation(subrelation2, 2)
+    check_relation(subrelation1, 'subrelation1')
+    check_relation(subrelation2, 'subrelation2')
     self.subrelation1 = subrelation1
     self.subrelation2 = subrelation2
 
