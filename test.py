@@ -53,7 +53,7 @@ if test == 12 :
 # Test SelectConstant
 if test == 20 :
   # error : attribute does not exists
-  rel = SelectAttribute('nonexistant', 'my_constant', emp)
+  rel = SelectConstant('nonexistant', 'my_constant', emp)
 if test == 21 :
   # working : existing attribute
   rel = SelectConstant('ename', 'BLAKE', emp)
