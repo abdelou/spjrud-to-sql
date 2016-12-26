@@ -1,11 +1,11 @@
 from Relation import Relation
+from Functions import *
 
 # Class Select to access constants 
 class SelectConstant(Relation) :
   def __init__(self, attribute_name, constant, subrelation) :
     # check and save subrelation
-    if not isinstance(subrelation, Relation) :
-      raise TypeError('subrelation argument must be of type Relation"')
+    check_relation(subrelation, 3)
     self.subrelation = subrelation
     
     # schema is unchanged
