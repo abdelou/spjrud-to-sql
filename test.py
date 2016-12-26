@@ -1,74 +1,88 @@
 # for debug purposes
-from pprint import pprint
 from tests.functions import exec_request
 from tests.database import create_database, delete_database
 
-create_database('test')
+DB_NAME = 'test'
+
+# create a test database
+create_database(DB_NAME)
+
 #""" Test SQLiteRelation
 from sqlite import SQLiteRelation
 
-emp = SQLiteRelation('test', 'emp')
-dept = SQLiteRelation('test', 'dept')
-#pprint(rel.getAttributesName())
+emp = SQLiteRelation(DB_NAME, 'emp')
+dept = SQLiteRelation(DB_NAME, 'dept')
+#exec_request(DB_NAME, emp)
+#exec_request(DB_NAME, dept)
 #"""
 
-""" Test Rename
-from Rename import Rename
+""" Test SelectAttribute
+from SPJRUD.SelectAttribute import SelectAttribute
 
-rel = Rename('ename', 'E e', rel)
-pprint(rel.getAttributesName())
+# not comparable attributes
+#rel = SelectAttribute('ename', 'empno', emp)
+
+# comparable attributes
+rel = SelectAttribute('ename', 'job', emp)
+
+exec_request(DB_NAME, rel)
 #"""
 
-#""" Test Project
+
+""" Test SelectConstant
+from SPJRUD.SelectConstant import SelectConstant
+
+# comparables attributes
+rel = SelectConstant('ename', 'BLAKE', emp)
+
+exec_request(DB_NAME, rel)
+#"""
+
+
+""" Test Project
 from SPJRUD.Project import Project
 
 rel = Project(['ename', 'empno'], emp)
-#rel = Project(['ename'], rel)
-#rel = Project(['E e'], rel)
-exec_request('test', rel)
+
+exec_request(DB_NAME, rel)
 #"""
 
-""" Test SelectAttribute
-from SelectAttribute import SelectAttribute
-# not comparable attributes
-rel = SelectAttribute('ename', 'empno', rel)
-#pprint(rel.getAttributesName())
-#"""
-""" Test SelectAttribute
-from SelectAttribute import SelectAttribute
-# comparable attributes
-rel = SelectAttribute('ename', 'job', rel)
-#pprint(rel.getAttributesName())
+
+#""" Test Join
+from SPJRUD.Join import Join
+
+from SPJRUD.SelectConstant import SelectConstant
+from SPJRUD.Rename import Rename
+
+rel = SelectConstant('ename', 'BLAKE', emp)
+
+#rel = Join(rel, dept)
+rel = Join(rel, Rename('deptno', 'deptno2', dept))
+
+exec_request(DB_NAME, rel)
 #"""
 
-""" Test SelectConstant
-from SelectConstant import SelectConstant
-# comparables attributes
-rel = SelectConstant('E e', 'BLAKE', rel)
-#pprint(rel.getAttributesName())
+
+""" Test Rename
+from SPJRUD.Rename import Rename
+
+rel = Rename('ename', 'Name', emp)
+exec_request(DB_NAME, rel)
 #"""
+
 
 """ Test Union
-from Union import Union
-from SelectConstant import SelectConstant
-
-rel1 = SelectConstant('ename', 'BLAKE', rel)
-rel2 = SelectConstant('ename', 'JONES', rel)
-rel = Union(rel1, rel2)
-#pprint(rel.getAttributesName())
-#"""
-
-""" Test Join
-from Join import Join
-
-from SelectConstant import SelectConstant
-from Rename import Rename
+from SPJRUD.Union import Union
+from SPJRUD.SelectConstant import SelectConstant
 
 rel1 = SelectConstant('ename', 'BLAKE', emp)
+rel2 = SelectConstant('ename', 'JONES', emp)
 
-rel2 = Join(rel1, Rename('deptno', 'Numero de dep', dept))
-exec_request(rel2)
+rel = Union(rel1, rel2)
+
+exec_request(DB_NAME, rel)
 #"""
 
-delete_database('test')
+
+delete_database(DB_NAME)
 
