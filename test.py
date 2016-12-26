@@ -80,6 +80,9 @@ if test == 41 :
 
 # Test Rename
 if test == 50 :
+  # error : attribute does not exists
+  rel = Rename('nonexistant', 'newname', emp)
+if test == 51 :
   rel = Rename('ename', 'Name', emp)
 
 
