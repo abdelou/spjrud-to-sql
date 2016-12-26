@@ -1,80 +1,14 @@
 # for debug purposes
 from pprint import pprint
+from tests.functions import exec_request
+from tests.database import create_database, delete_database
 
-def exec_request(relation) :
-  import sqlite3
-  
-  sql = relation.toSQL()+';'
-  pprint(sql)
-  
-  database = sqlite3.connect('database.db')
-  cursor = database.cursor()
-  tuples = cursor.execute(sql)
-  
-  print_relation(relation.getAttributesName(), tuples)
-
-#"""
-
-def print_relation(attributes, tuples) :
-  # get data and convert them to str
-  rows = []
-  for t in tuples :
-    new_row = []
-    for val in t :
-      new_row.append(str(val))
-    rows.append(new_row)
-  
-  # get max length for each column
-  max = {}
-  for attr in attributes :
-    max[attr] = len(attr)
-  
-  for row in rows :
-    for attr, val in zip(attributes, row) :
-      l = len(val)
-      if l > max[attr] :
-        max[attr] = l
-  
-  # create separator
-  separator = '+-'
-  for attr in attributes :
-    separator = separator + pad_left('', max[attr], '-') + '-+-'
-  # remove last "-"
-  separator = separator[:-1]
-  # start printing
-  print separator
-  # print header
-  line = '| '
-  for attr in attributes :
-    line = line + pad_left(attr, max[attr]) + ' | '
-  # remove last " "
-  line = line[:-1]
-  print line
-  print separator
-  # print data
-  for row in rows :
-    line = '| '
-    for attr, val in zip(attributes, row) :
-      line = line + pad_left(val, max[attr]) + ' | '
-    # remove last " "
-    line = line[:-1]
-    print line
-  
-  print separator
-
-def pad_left(string, size, character=' ') :
-  l = len(string)
-  p = ''
-  for i in range(l, size) :
-    p = p+character
-  
-  return p+string
-
+create_database('test')
 #""" Test SQLiteRelation
 from sqlite import SQLiteRelation
 
-emp = SQLiteRelation('database', 'emp')
-dept = SQLiteRelation('database', 'dept')
+emp = SQLiteRelation('test', 'emp')
+dept = SQLiteRelation('test', 'dept')
 #pprint(rel.getAttributesName())
 #"""
 
@@ -85,13 +19,13 @@ rel = Rename('ename', 'E e', rel)
 pprint(rel.getAttributesName())
 #"""
 
-""" Test Project
-from Project import Project
+#""" Test Project
+from SPJRUD.Project import Project
 
-rel = Project(['ename', 'empno'], rel)
+rel = Project(['ename', 'empno'], emp)
 #rel = Project(['ename'], rel)
 #rel = Project(['E e'], rel)
-#pprint(rel.getAttributesName())
+exec_request('test', rel)
 #"""
 
 """ Test SelectAttribute
@@ -124,16 +58,17 @@ rel = Union(rel1, rel2)
 #pprint(rel.getAttributesName())
 #"""
 
-#""" Test Join
+""" Test Join
 from Join import Join
 
 from SelectConstant import SelectConstant
+from Rename import Rename
 
 rel1 = SelectConstant('ename', 'BLAKE', emp)
 
-rel2 = Join(rel1, dept)
+rel2 = Join(rel1, Rename('deptno', 'Numero de dep', dept))
 exec_request(rel2)
 #"""
 
-
+delete_database('test')
 
