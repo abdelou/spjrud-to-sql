@@ -1,7 +1,7 @@
 from pprint import pprint
 
 
-# 'Abstract' class used as a base for all Operators. Made of a list of objects of type Attributes
+# 'Abstract' class used as a base for all Operators. Made of a list of objects of type Attribute
 class Relation :
   def __init__(self, attributes) :
     self.setAttributes(attributes)
