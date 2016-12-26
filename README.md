@@ -19,7 +19,7 @@ There are two kinds of `Select` :
 - `SelectConstant` that returns tuples if value from one column equals a constant
 
 ### Project
-Reduce the number of attributes in the returns tuples.
+Reduce the number of attributes in the returned tuples.
 
 ### Join
 Returns tuples only if corresponding values are in both subrelation1 and subrelation2.
@@ -34,7 +34,7 @@ Returns tuples from two relations with same attributes.
 Returns tuples in the first relation that does not appear in the second one. Both relations must have same attributes.
 
 ## Tests
-To allow you to easily see all possibilities given by this application, we created a file `test.py` listing all usage of created classes and all common errors. It is obvious that you can chain object in a more complex way to make powerful requests but we let you imagination do the job.
+To allow you to easily see all possibilities given by this application, we created a file `test.py` listing all usages of created classes and common errors. It is obvious that objects can be chained in a more complex way to make powerful requests but we let your imagination do the job.
 
 ## Attribute types
 According to [this page](https://www.sqlite.org/datatype3.html), valid SQLite types are :
