@@ -1,12 +1,12 @@
 from Relation import Relation
+from Functions import *
 
 
 # Operator Select to access an attribute (or column)
 class SelectAttribute(Relation) :
   def __init__(self, attribute_name_1, attribute_name_2, subrelation) :
     # check and save subrelation
-    if not isinstance(subrelation, Relation) :
-      raise TypeError('subrelation argument must be of type "Relation"')
+    check_relation(subrelation, 3)
     self.subrelation = subrelation
     
     # schema is unchanged
