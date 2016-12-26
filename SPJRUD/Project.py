@@ -11,8 +11,8 @@ class Project(Relation) :
     subAttributesName = subrelation.getAttributesName()
     for attr in only_attributes :
       if not attr in subAttributesName :
-        raise Exception('Sub-Relation of Project has no attribute "'+attr+'"')
-        
+        self.error('subrelation has no attribute "'+attr+'"')
+    
     # create new schema with only only_attributes
     attributes = []
     for attr in subrelation.getAttributes() :
