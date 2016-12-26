@@ -11,7 +11,7 @@ class SelectConstant(Relation) :
     self.setAttributes(subrelation.getAttributes())
     
     # checks are made in getAttribute
-    self.attribute = self.getAttribute(attribute_name)
+    self.attribute = self.getAttribute(attribute_name, True, 'subrelation')
     self.constant = str(constant)
   
   def toSQL(self) :
