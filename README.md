@@ -4,25 +4,32 @@
 Learning database theory, we have been asked to write a Python program that translate SPJRUD to SQL to make requests to an SQLite database. This document describe implementation choices.
 
 ## Structure
-An abstract class `Relation` is used to as base for all operators. This class can be instancied but will not be able to do all operations such as `toSQL()` method. It is composed mainly of schema attributes. Subclasses of `Relation` :
+An abstract class `Relation` is used as base for all operators. This class can be instancied but will not be able to do all operations such as `toSQL()` method. It is composed mainly of schema attributes. Subclasses of `Relation` :
 - `SQLiteRelation` that gets attributes from an existing SQLite database
 - all SPJRUD Operators described below
+
 Each subclass can override `toSQL()` method to return the compiled SQL query of its representation.
 SQL can then be passed to SQLite `execute()` method to get data resulting from query.
 
 ## SPJRUD Operators
+
 ### Select
 There are two kinds of `Select` :
 - `SelectAttribute` that returns tuples if values from two columns are equals
 - `SelectConstant` that returns tuples if value from one column equals a constant
+
 ### Project
 Reduce the number of attributes in the returns tuples.
+
 ### Join
 Returns tuples only if corresponding values are in both subrelation1 and subrelation2.
+
 ### Rename
 Rename an attribute.
+
 ### Union
 Returns tuples from two relations with same attributes.
+
 ### Difference
 Returns tuples in the first relation that does not appear in the second one. Both relations must have same attributes.
 
