@@ -1,14 +1,13 @@
 from Relation import Relation
+from Functions import *
 from copy import deepcopy
 
 
 class Join(Relation) :
   def __init__(self, subrelation1, subrelation2) :
     # check that arguments are objects of type Relation
-    if not isinstance(subrelation1, Relation) :
-      raise TypeError('subrelation1 argument must be of type Relation"')
-    if not isinstance(subrelation2, Relation) :
-      raise TypeError('subrelation2 argument must be of type Relation"')
+    check_relation(subrelation1, 1)
+    check_relation(subrelation2, 2)
     self.subrelation1 = subrelation1
     self.subrelation2 = subrelation2
     

@@ -1,11 +1,11 @@
 from Relation import Relation
+from Functions import *
 
 
 class Project(Relation) :
   def __init__(self, only_attributes, subrelation) :
     # check that argument subrelation is an object of type Relation
-    if not isinstance(subrelation, Relation) :
-      raise TypeError('subrelation argument must be of type Relation"')
+    check_relation(subrelation, 2)
     self.subrelation = subrelation
     
     # check that attributes are in subAttributes

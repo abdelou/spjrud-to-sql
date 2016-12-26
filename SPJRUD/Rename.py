@@ -1,12 +1,12 @@
 from Relation import Relation, Attribute
+from Functions import *
 from copy import deepcopy
 
 
 class Rename(Relation) :
   def __init__(self, old_attr_name, new_attr_name, subrelation) :
     # check that argument subrelation is of type Relation
-    if not isinstance(subrelation, Relation) :
-      raise TypeError('subrelation argument must be of type Relation"')
+    check_relation(subrelation, 3)
     self.subrelation = subrelation
     
     # copy attributes and rename one
