@@ -9,7 +9,7 @@ class Difference(Relation):
     self.subrelation2 = check_relation(self, subrelation2, 'subrelation2')
     
     # check that attributes are exactly the same
-    self.setAttributes(check_matching_attributes(subrelation1.getAttributes(), subrelation2.getAttributes()))
+    self.setAttributes(check_matching_attributes(self, subrelation1.getAttributes(), subrelation2.getAttributes()))
   
   def toSQL(self):
     # query
