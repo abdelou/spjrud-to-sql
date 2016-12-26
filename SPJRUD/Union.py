@@ -12,5 +12,5 @@ class Union(Relation) :
     self.setAttributes(check_matching_attributes(self, subrelation1.getAttributes(), subrelation2.getAttributes()))
   
   def toSQL(self) :
-    # query
-    return self.subrelation1.toSQL()+' UNION '+self.subrelation2.toSQL()
+    # query, keep 2 select because SQLite do not want () out of FROM
+    return 'SELECT * FROM ('+self.subrelation1.toSQL()+') UNION SELECT * FROM ('+self.subrelation2.toSQL()+')'
