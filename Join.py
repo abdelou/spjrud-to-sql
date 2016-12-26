@@ -4,6 +4,7 @@ from copy import deepcopy
 
 class Join(Relation) :
   def __init__(self, subrelation1, subrelation2) :
+    # check that arguments are objects of type Relation
     if not isinstance(subrelation1, Relation) :
       raise TypeError('subrelation1 argument must be of type Relation"')
     if not isinstance(subrelation2, Relation) :
