@@ -1,9 +1,14 @@
 import sqlite3
 
 def delete_database(database_name) :
-  os.remove(database_name+'.db')
+  import os
+  
+  file = database_name+'.db'
+  if os.path.isfile(file) :
+    os.remove(file)
 
 def create_database(database_name) :
+  delete_database(database_name)
   # create database from SQL TP, to run some tests
   database = sqlite3.connect(database_name+'.db')
 
