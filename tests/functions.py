@@ -7,7 +7,8 @@ def exec_request(database_name, relation, print_sql=True, print_result=True) :
   sql = relation.toSQL()+';'
   if print_sql :
     print 'SQL Request :'
-    print '"'+sql+'"'
+    print '\t'+sql
+    print ''
   
   database = sqlite3.connect(database_name+'.db')
   cursor = database.cursor()
