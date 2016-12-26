@@ -14,9 +14,14 @@ class Join(Relation) :
     # make list of common attributes for future use
     self.common_attributes_name = []
     
-    # check if both attributes are same
-    # TODO make using empty in this case
+    # check if all attributes are the same, it is an intersection
+    if attributes_match(subrelation1.getAttributes(), subrelation2.getAttributes()) :
+      self.intersect = True
+      return
+    else :
+      self.intersect = False
     
+    # check common attributes
     for attr2 in subrelation2.getAttributes() :
       attr1 = self.getAttribute(attr2.getName(), False)
       # not common, add it to attributes
@@ -31,6 +36,9 @@ class Join(Relation) :
         self.error(str(attr1)+' in subrelation1 is not the same type as '+str(attr2)+' in subrelation2')
     
   def toSQL(self) :
+    if self.intersect :
+      return 'SELECT * FROM ('+self.subrelation1.toSQL()+') INTERSECT SELECT * FROM ('+self.subrelation2.toSQL()+')'
+    
     using = ''
     if self.common_attributes_name :
       common_columns = '"'+'","'.join(self.common_attributes_name)+'"'
