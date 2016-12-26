@@ -13,8 +13,7 @@ def check_attributes_match(attributes1, attributes2):
         msg2 = '' + att2.getName() + ':' + att2.getType() + '\n'
       raise Exception('subrelation1 must have same attributes as subrelation2. Your subrelation 1 attributes are:/n' + msg1 + '\nWhile your subrelation2 attributes are:\n' + msg2)
 
-
-
+      
 def check_relation(subrelation, num = 1):
   if not isinstance(subrelation, Relation):
     raise TypeError('Argument ' + num + 'must be an object of type Relation')
