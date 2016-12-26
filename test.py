@@ -102,8 +102,24 @@ if test == 52 :
 
 # Test Union
 if test == 60 :
+  # error : one attribute not common
+  rel1 = Project(['ename', 'job'], emp)
+  rel2 = Project(['job'], emp)
+  rel = Union(rel1, rel2)
+if test == 61 :
+  # error : all differents attributes
+  rel1 = Project(['ename'], emp)
+  rel2 = Project(['job'], emp)
+  rel = Union(rel1, rel2)
+if test == 62 :
+  # error : one attribute with same name but different type
+  rel1 = Project(['ename'], emp)
+  rel2 = Rename('deptno', 'ename', Project(['deptno'], emp))
+  rel = Union(rel1, rel2)
+if test == 63 :
+  # working
   rel1 = SelectConstant('ename', 'BLAKE', emp)
-  rel2 = SelectConstant('ename', 'JONES', emp)
+  rel2 = SelectConstant('ename', 'SMITH', emp)
   rel = Union(rel1, rel2)
 
 
