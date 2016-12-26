@@ -1,19 +1,31 @@
 from Relation import Relation
 
 
-def check_attributes_match(attributes1, attributes2):
+def attributes_match(attributes1, attributes2) :
   if len(attributes1) != len(attributes2):
-    att1 = str(attributes1)
-    att2 = str(attributes2)
-    raise Exception('subrelation1 must have same attributes as subrelation2. Your subrelation1 attributes are:\n' + att1 + '\nWhile your subrelation2 attributes are:\n' + att2)
-  for attr1, attr2 in zip(attributes1, attributes2):
-    if attr1.getName() != attr2.getName() or attr1.getType() != attr2.getType():
-      for att1, att2 in zip(attributes1, attributes2):
-        msg1 = '' + att1.getName() + ':' + att1.getType() + '\n'
-        msg2 = '' + att2.getName() + ':' + att2.getType() + '\n'
-      raise Exception('subrelation1 must have same attributes as subrelation2. Your subrelation 1 attributes are:/n' + msg1 + '\nWhile your subrelation2 attributes are:\n' + msg2)
+    return False
+  
+  for attr1, attr2 in zip(attributes1, attributes2) :
+    if attr1.getName() != attr2.getName() or attr1.getType() != attr2.getType() :
+      return False
+  
+  return True
+
+def check_matching_attributes(calling_rel, attributes1, attributes2) :
+  if not attributes_match(attributes1, attributes2) :
+    error_str = 'attributes from subrelation1 does not match attributes from subrelation2\n'
+    error_str = error_str+'\tAttributes from subrelation1 :\n'+str_attributes(attributes1, '\t\t')
+    error_str = error_str+'\tAttributes from subrelation2 :\n'+str_attributes(attributes2, '\t\t')
+    calling_rel.error(error_str)
+  return attributes1
 
 def check_relation(calling_rel, checked_relation, rel_name='checked_relation') :
   if not isinstance(checked_relation, Relation) :
     calling_rel.error('Argument '+rel_name+' must be an object of type Relation')
   return checked_relation
+
+def str_attributes(attributes, prefix='') :
+  s = ''
+  for attr in attributes :
+    s = s+prefix+str(attr)+'\n'
+  return s

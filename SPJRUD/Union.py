@@ -9,9 +9,7 @@ class Union(Relation) :
     self.subrelation2 = check_relation(self, subrelation2, 'subrelation2')
     
     # check that attributes are exactly the same
-    check_attributes_match(self, subrelation1.getAttributes(), subrelation2.getAttributes())
-    
-    self.setAttributes(subrelation1.getAttributes())
+    self.setAttributes(check_matching_attributes(subrelation1.getAttributes(), subrelation2.getAttributes()))
   
   def toSQL(self) :
     # query
