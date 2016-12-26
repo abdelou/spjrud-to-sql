@@ -14,7 +14,7 @@ class Relation :
     # check that all objects in the list are of type Attribute
     for attr in attributes :
       if not isinstance(attr, Attribute) :
-        raise TypeError('Attribute "'+attr+'" is not of type Attribute')
+        raise TypeError('Attribute "'+str(attr)+'" is not of type Attribute')
     
     self.attributes = attributes
   
@@ -23,9 +23,9 @@ class Relation :
     for attr in self.attributes :
       if attr.getName() == attribute_name :
         return attr
-    if not raise_error :
-      return False
-    self.error(rel_name+' has no attribute named "'+attribute_name+'"')
+    if raise_error :
+      self.error(rel_name+' has no attribute named "'+attribute_name+'"')
+    return False
   
   # return list of Attributes
   def getAttributes(self) :
@@ -38,39 +38,46 @@ class Relation :
       names.append(attr.getName())
     return names
   
+  # abstract method to be defined in each subclass
   def toSQL(self) :
-    raise Exception('method toSQL not implemented here')
+    self.error('method toSQL not implemented here')
   
+  # raises an error with an info about the subclass name
   def error(self, message) :
     raise Exception(self.__class__.__name__+' : '+message)
 
 # class used to represent each column (attribute) in a table (relation).
 class Attribute :
-  # datatypes from https://www.sqlite.org/datatype3.html and FLOAT return by PRAGMA TABLE_INFO()
+  # see README for more informations about data types
   valid_types = ['TEXT', 'NUMERIC', 'INTEGER', 'REAL', 'BLOB', 'FLOAT']
+  
+  # construct object with a string name and a type from valid_types
   def __init__(self, name, type) :
     self.setName(name)
-    # check type
-    if not type in Attribute.valid_types :
-      raise TypeError('Invalid type "'+type+'" for attribute "'+name+'"')
-    self.type = type
+    self.setType(type)
   
   def isComparableTo(self, other) :
     if not isinstance(other, Attribute) :
       return False
-    # numeric can be compared with numeric so only text cannot be compared with other
+    # see README for more informations about data comparison
     if self.getType() == 'TEXT' and other.getType() != 'TEXT' :
       return False
     if other.getType() == 'TEXT' and self.getType() != 'TEXT' :
       return False
     return True
   
+  # some more checks could be done but names are excaped within requests
   def setName(self, name) :
-    # TODO : check name ?
     self.name = unicode(name)
   
   def getName(self) :
     return self.name
+  
+  # check type, see README for more informations about data types
+  def setType(self, type) :
+    if not type in Attribute.valid_types :
+      raise TypeError('Invalid type "'+type+'"')
+    self.type = type
   
   def getType(self) :
     return self.type
