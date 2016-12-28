@@ -10,37 +10,30 @@ class Join(Relation) :
     self.subrelation2 = check_relation(self, subrelation2, 'subrelation2')
     
     # copy at least attributes from attributes1
-    self.setAttributes(deepcopy(subrelation1.getAttributes()))
-    # make list of common attributes for future use
-    self.common_attributes_name = []
+    attributes = deepcopy(subrelation1.getAttributes())
     
     # check if all attributes are the same, it is an intersection (not managed by SQL JOIN)
     if attributes_match(subrelation1.getAttributes(), subrelation2.getAttributes()) :
       self.intersect = True
+      self.setAttributes(attributes)
       return
     else :
       self.intersect = False
     
-    # check common attributes
+    # check that common attributes have same type and add uncommon ones
     for attr2 in subrelation2.getAttributes() :
-      attr1 = self.getAttribute(attr2.getName(), False)
-      # not common, add it to attributes
+      attr1 = subrelation1.getAttribute(attr2.getName(), False)
+      # add uncommon attributes
       if not attr1 :
-        self.attributes.append(attr2)
-        continue
-      # common attributes, check type
-      if attr1.getType() == attr2.getType() :
-        self.common_attributes_name.append(attr1.getName())
-      # attribute with same name but different type
-      else :
+        attributes.append(attr2)
+      # common attribute with different types
+      elif attr1.getType() != attr2.getType() :
         self.error(str(attr1)+' in subrelation1 is not the same type as '+str(attr2)+' in subrelation2')
+    
+    self.setAttributes(attributes)
     
   def toSQL(self) :
     if self.intersect :
       return 'SELECT * FROM ('+self.subrelation1.toSQL()+') INTERSECT SELECT * FROM ('+self.subrelation2.toSQL()+')'
-    
-    using = ''
-    if self.common_attributes_name :
-      common_columns = '"'+'","'.join(self.common_attributes_name)+'"'
-      using = ' USING ('+common_columns+')'
-    return 'SELECT * FROM ('+self.subrelation1.toSQL()+') JOIN ('+self.subrelation2.toSQL()+')'+using
+    # NATURAL JOIN is equivalent to JOIN USING [COMMON_ATTRIBUTES]
+    return 'SELECT * FROM ('+self.subrelation1.toSQL()+') NATURAL JOIN ('+self.subrelation2.toSQL()+')'
